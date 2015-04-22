@@ -1,3 +1,7 @@
 {
-    "name": "tcbgroup/dhl-service-point-locator"
+    "name": "tcbgroup/dhl-service-point-locator",
+    "require": {
+        "php": ">=5.3.0",
+        "ext-libxml": "*"
+    }
 }
