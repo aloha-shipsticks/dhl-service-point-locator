@@ -17,13 +17,13 @@ class DhlServicePointLocator {
 
 	private function getClient(){
 		if(!isset($this->client)){
-			$this->client = new SoapClient($this->endpoint . '?wsdl', array('trace'=>1));
+			$this->client = new \SoapClient($this->endpoint . '?wsdl', array('trace'=>1));
 		}
 		return $this->client;
 	}
 
 	private function buildParams($postCode, $street=null, $city=null, $featureCodes=array(), $bitCatCodes=array(), $maxNrOfItems = 10, $countryCode = 'S'){
-		$params = new stdClass();
+		$params = new \stdClass();
 		$params->PostCode = $postCode;
 		$params->CountryCode = $countryCode;
 		if($street != null) $params->Street = $street;
@@ -38,7 +38,6 @@ class DhlServicePointLocator {
 		$servicePoints = array();
 		if(isset($response->ServicePoints) && isset($response->ServicePoints->NearbyServicePoint)){
 			foreach($response->ServicePoints->NearbyServicePoint as $servicePoint){
-				var_dump($servicePoint);
 				$featureCodes = array();
 				if(isset($servicePoint->FeatureCodes)){
 					foreach($servicePoint->FeatureCodes as $featureCode){
