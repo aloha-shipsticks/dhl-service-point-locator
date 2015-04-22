@@ -1,4 +1,6 @@
 <?php
+namespace TcbGroup;
+
 class DhlServicePointLocator {
 
 	const ENDPOINT_TEST = 'http://164.9.104.198/DHLServicePointLocatorWS/ServicePoint.svc';
