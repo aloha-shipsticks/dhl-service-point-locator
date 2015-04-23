@@ -34,26 +34,34 @@ class DhlServicePointLocator {
 		return $params;
 	}
 
+	private function parseServicePoint($servicePoint){
+		$featureCodes = array();
+		if(isset($servicePoint->FeatureCodes)){
+			foreach($servicePoint->FeatureCodes as $featureCode){
+				$featureCodes[] = $featureCode;
+			}
+		}
+		return array(
+				'Id' => $servicePoint->Identity->Id,
+				'DisplayName' => $servicePoint->Identity->DisplayName,
+				'Distance' => floatval($servicePoint->Distance),
+				'RouteDistance' => floatval($servicePoint->RouteDistance),
+				'StreetName' => $servicePoint->StreetName,
+				'PostCode' => $servicePoint->PostCode,
+				'City' => $servicePoint->City,
+				'FeatureCodes' => $featureCodes
+		);
+	}
+	
 	private function parseServicePointsFromResponse($response){
 		$servicePoints = array();
 		if(isset($response->ServicePoints) && isset($response->ServicePoints->NearbyServicePoint)){
-			foreach($response->ServicePoints->NearbyServicePoint as $servicePoint){
-				$featureCodes = array();
-				if(isset($servicePoint->FeatureCodes)){
-					foreach($servicePoint->FeatureCodes as $featureCode){
-						$featureCodes[] = $featureCode;
-					}
+			if(is_array($response->ServicePoints->NearbyServicePoint)){
+				foreach($response->ServicePoints->NearbyServicePoint as $servicePoint){
+					$servicePoints[] = $this->parseServicePoint($servicePoint);
 				}
-				$servicePoints[] = array(
-						'Id' => $servicePoint->Identity->Id,
-						'DisplayName' => $servicePoint->Identity->DisplayName,
-						'Distance' => floatval($servicePoint->Distance),
-						'RouteDistance' => floatval($servicePoint->RouteDistance),
-						'StreetName' => $servicePoint->StreetName,
-						'PostCode' => $servicePoint->PostCode,
-						'City' => $servicePoint->City,
-						'FeatureCodes' => $featureCodes
-				);
+			}else{
+				$servicePoints[] = $this->parseServicePoint($response->ServicePoints->NearbyServicePoint);
 			}
 		}
 		return $servicePoints;
