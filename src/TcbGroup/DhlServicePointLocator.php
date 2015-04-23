@@ -30,7 +30,7 @@ class DhlServicePointLocator {
 		if($city != null) $params->City = $city;
 		if($featureCodes != null) $params->FeatureCodes = $featureCodes;
 		if($bitCatCodes != null) $params->BitCatCodes = $bitCatCodes;
-		$params->MaxNrOfItems = $maxNrOfItems;
+		$params->MaxNumberOfItems = $maxNrOfItems;
 		return $params;
 	}
 
