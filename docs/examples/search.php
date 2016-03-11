@@ -7,11 +7,20 @@ function printServicePoint($servicePoint){
 	echo $servicePoint['StreetName'] . "\n";
 	echo $servicePoint['PostCode'] . ' ' . $servicePoint['City'] . "\n";
 	echo 'Dist: ' . $servicePoint['Distance'] . "\tRouteDistance: " . $servicePoint['RouteDistance'] . "\n";
-	echo "Features: " . implode(', ', $servicePoint['FeatureCodes']) . "\n";
+	echo "Features:\n";
+	foreach($servicePoint['FeatureCodes'] as $featureCodes){
+		if(is_array($featureCodes)){
+			foreach($featureCodes as $featureCode){
+				echo "\t" . $featureCode . "\n";
+			}
+		}else{
+			echo "\t" . $featureCodes . "\n";
+		}
+	}
 	echo "\n";
 }
 
-$locator = new DhlServicePointLocator(DhlServicePointLocator::ENDPOINT_TEST);
+$locator = new DhlServicePointLocator(DhlServicePointLocator::ENDPOINT_PROD);
 
 $servicePoints = $locator->search('13540');
 foreach($servicePoints as $servicePoint){

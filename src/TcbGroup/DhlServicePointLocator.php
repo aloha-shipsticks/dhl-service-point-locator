@@ -2,8 +2,8 @@
 namespace TcbGroup;
 class DhlServicePointLocator {
 
-	const ENDPOINT_TEST = 'http://164.9.104.198/DHLServicePointLocatorWS/ServicePoint.svc';
-	const ENDPOINT_PROD = 'http://dhltoolbox.se/DHLServicePointLocatorWS/ServicePoint.svc';
+	const ENDPOINT_TEST = 'https://www.dhltoolboxtest.se/DHLServicePointLocatorWS/ServicePoint.svc';
+	const ENDPOINT_PROD = 'http://164.9.104.199/DHLServicePointLocatorWS/ServicePoint.svc';
 
 	const FEATURE_CASH_ON_DELIVERY = 'SF054';
 	const BITCAT_INTERNATIONAL = 'BS01-TD';
